@@ -1,0 +1,169 @@
+body {
+  @apply font-euclid text-sm
+}
+
+.container-middle {
+  width: 100%;
+  max-width: 100%;
+}
+.w-content {
+  max-width: max-content
+}
+.title-bhi {
+  @apply inline-block bg-bhi-primary text-white text-xl px-12 py-3 rounded-3xl rounded-bl-none duration-300 shadow-primary
+}
+.btn-bhi-primary {
+  @apply bg-bhi-primary text-white text-base font-semibold px-8 py-3 rounded-3xl border border-bhi-primary duration-200 cursor-pointer select-none;
+  &:hover {
+    @apply bg-white text-bhi-primary
+  }
+}
+.btn-bhi-primary-outline {
+  @apply bg-white text-bhi-primary text-base font-semibold px-8 py-2 rounded-3xl border border-bhi-primary duration-200 cursor-pointer select-none;
+  &:hover {
+    @apply bg-bhi-primary text-white
+  }
+}
+
+.btn-bhi-secondary {
+  @apply text-white bg-bhi-secondary text-base font-semibold px-8 py-3 rounded-3xl border border-bhi-secondary duration-200 cursor-pointer select-none;
+  &:hover {
+    @apply text-bhi-secondary bg-white
+  }
+}
+.btn-bhi-secondary-outline {
+  @apply text-bhi-secondary text-base font-semibold px-8 py-3 rounded-3xl border border-bhi-secondary duration-200 cursor-pointer select-none;
+  &:hover {
+    @apply text-white bg-bhi-secondary
+  }
+}
+
+.card__img {
+  @apply h-full rounded-3xl rounded-bl-none;
+  max-height: 203px;
+}
+
+/* tabs */
+.tab__action {
+  @apply px-12 py-3 rounded-t-3xl select-none cursor-pointer border-2 border-b-0 border-bhi-primary text-bhi-primary text-xl font-bold duration-300;
+}
+.tab__active {
+  @apply bg-bhi-primary text-white;
+}
+.tags__general {
+  @apply border border-bhi-secondary flex items-center capitalize text-bhi-secondary py-2 pl-3 pr-4 rounded-3xl select-none cursor-pointer;
+}
+
+
+.btn-bhi-control-minus,
+.btn-bhi-control-add {
+  @apply select-none flex justify-center items-center rounded-full border border-black cursor-pointer text-10;
+  width: 24px;
+  height: 24px;
+}
+.btn-bhi-control-minus {
+  @apply bg-transparent text-black
+}
+.btn-bhi-control-add {
+  @apply bg-black text-white;
+}
+.btn-bhi-control-minus:hover {
+  @apply text-white  bg-black
+}
+.btn-bhi-control-add:hover {
+  @apply text-black bg-transparent
+}
+
+.input-bhi {
+  @apply border border-bhi-primary text-xl p-2 pl-5 bg-transparent rounded-3xl outline-none
+}
+
+::-webkit-input-placeholder {
+  @apply text-13 italic font-light;
+  color: #777777;
+}
+::-moz-placeholder {
+  @apply text-13 italic font-light;
+  color: #777777;
+ }
+:-ms-input-placeholder {
+  @apply text-13 italic font-light;
+  color: #777777;
+ }
+input:-moz-placeholder {
+  @apply text-13 italic font-light;
+  color: #777777;
+ }
+ textarea::-webkit-input-placeholder {
+  @apply text-13 italic font-light;
+  color: #777777;
+}
+textarea::-moz-placeholder {
+  @apply text-13 italic font-light;
+  color: #777777;
+ }
+textarea:-ms-input-placeholder {
+  @apply text-13 italic font-light;
+  color: #777777;
+ }
+ textarea:-moz-placeholder {
+  @apply text-13 italic font-light;
+  color: #777777;
+ }
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0; 
+}
+input[type=number] {
+    -moz-appearance:textfield;
+}
+
+.btn-bhi-control-select,
+.btn-bhi-control {
+  @apply select-none flex justify-center items-center rounded-full border border-bhi-primary cursor-pointer text-10;
+  width: 24px;
+  height: 24px;
+}
+.btn-bhi-control {
+  @apply bg-transparent text-bhi-primary
+}
+.btn-bhi-control-select {
+  @apply bg-bhi-primary text-white;
+}
+.btn-bhi-control:hover {
+  @apply text-white  bg-bhi-primary
+}
+.btn-bhi-control-select:hover {
+  @apply text-black  bg-transparent
+}
+
+.bg-card-gray {
+  background: #F8F8F8
+}
+
+.animation-fade {
+  animation: fadeIn 0.4s;
+}
+
+@-webkit-keyframes fadeIn {
+    from { opacity: 0; }
+      to { opacity: 1; }
+}
+@keyframes fadeIn {
+    from { opacity: 0; }
+      to { opacity: 1; }
+}
+
+@media (max-width: 1024px) {
+  .title-bhi {
+    @apply text-lg
+  }
+}
+
+@media (min-width: 1024px) {
+  .container-middle {
+    max-width: 583px
+  }
+}
+

@@ -1,0 +1,179 @@
+<template>
+  <div>
+    <!-- title -->
+    <div class="title-bhi mb-12">
+      Nombre de la agencia
+    </div>
+
+    <!-- back -->
+    <div class="cursor-pointer mb-8">
+      <div class="flex items-center" @click="$router.back()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30">
+          <circle
+            id="Ellipse_111"
+            data-name="Ellipse 111"
+            cx="15"
+            cy="15"
+            r="15"
+            fill="#00008b"
+          />
+          <g id="Group_525" data-name="Group 525" transform="translate(7.167 10)">
+            <line
+              id="Line_2"
+              data-name="Line 2"
+              x1="5.167"
+              y2="4.833"
+              transform="translate(4.833)"
+              fill="none"
+              stroke="#fff"
+              stroke-linecap="round"
+              stroke-width="1.5"
+            />
+            <line
+              id="Line_3"
+              data-name="Line 3"
+              x2="5.167"
+              y2="5.167"
+              transform="translate(4.833 4.833)"
+              fill="none"
+              stroke="#fff"
+              stroke-linecap="round"
+              stroke-width="1.5"
+            />
+          </g>
+        </svg>
+
+        <span class="ml-4 italic text-lg">Volver</span>
+      </div>
+    </div>
+
+    <!-- agency -->
+    <div class="flex lg:items-center flex-col lg:flex-row mb-12">
+      <span class="text-4xl font-bold mr-8">Agencia A</span>
+      <span class="italic underline text-base mt-5 lg:mt-0">Información de la agencia</span>
+    </div>
+
+    <!-- form -->
+    <div class="flex flex-wrap mb-16 lg:mb-24">
+      <!-- left -->
+      <div class="w-full lg:w-7/12 lg:pr-24">
+        <div class="flex flex-col mb-4">
+          <span class="lg:text-xl text-lg font-bold mb-4">Correo electrónico</span>
+          <input class="input-bhi" type="text">
+        </div>
+
+        <div class="flex flex-col mb-4">
+          <span class="lg:text-xl text-lg font-bold mb-4">Nombre del vendedor</span>
+          <input class="input-bhi" type="text">
+        </div>
+
+        <div class="flex flex-col mb-4">
+          <span class="lg:text-xl text-lg font-bold mb-4">Dirección</span>
+          <input class="input-bhi" type="text">
+        </div>
+
+        <div class="flex flex-col mb-4">
+          <span class="lg:text-xl text-lg font-bold mb-4">Teléfono</span>
+          <input class="input-bhi" type="text">
+        </div>
+
+        <div class="flex flex-col mb-4">
+          <span class="lg:text-xl text-lg font-bold mb-4">Razón Social</span>
+          <input class="input-bhi" type="text">
+        </div>
+      </div>
+
+      <!-- rigth -->
+      <div class="w-full lg:w-5/12">
+        <div class="flex flex-col mb-4">
+          <span class="lg:text-xl text-lg font-bold mb-4">Redes Sociales</span>
+
+          <div class="mb-4 flex">
+            <div class="mr-4">
+              <svg xmlns="http://www.w3.org/2000/svg" width="51" height="51" viewBox="0 0 51 51">
+                <g id="Group_559" data-name="Group 559" transform="translate(-413 -976)">
+                  <g id="Group_62" data-name="Group 62" transform="translate(677.794 -1482.206)">
+                    <circle
+                      id="Ellipse_2"
+                      data-name="Ellipse 2"
+                      cx="25.5"
+                      cy="25.5"
+                      r="25.5"
+                      transform="translate(-264.794 2458.206)"
+                      fill="#09f"
+                    />
+                  </g>
+                  <path id="Icon_simple-twitter" data-name="Icon simple-twitter" d="M24.951,5.789a10.417,10.417,0,0,1-2.943.807A5.164,5.164,0,0,0,24.261,3.76,10.586,10.586,0,0,1,21,4.993a5.123,5.123,0,0,0-8.865,3.5,5.244,5.244,0,0,0,.132,1.171A14.515,14.515,0,0,1,1.708,4.322,5.023,5.023,0,0,0,1.015,6.9a5.126,5.126,0,0,0,2.279,4.266,5.108,5.108,0,0,1-2.321-.642v.064a5.128,5.128,0,0,0,4.11,5.028,5.172,5.172,0,0,1-2.3.089,5.142,5.142,0,0,0,4.8,3.559,10.279,10.279,0,0,1-6.356,2.193A10.878,10.878,0,0,1,0,21.387a14.578,14.578,0,0,0,7.872,2.3A14.476,14.476,0,0,0,22.453,9.12c0-.218,0-.437-.016-.656A10.349,10.349,0,0,0,25,5.81l-.049-.021Z" transform="translate(426 987.631)" fill="#fff" />
+                </g>
+              </svg>
+            </div>
+
+            <input class="input-bhi w-full" type="text">
+          </div>
+
+          <div class="mb-4 flex">
+            <div class="mr-4">
+              <svg xmlns="http://www.w3.org/2000/svg" width="50.875" height="50.567" viewBox="0 0 50.875 50.567">
+                <g id="Group_558" data-name="Group 558" transform="translate(-442 -1048.048)">
+                  <path id="Icon_awesome-facebook" data-name="Icon awesome-facebook" d="M51.438,26A25.438,25.438,0,1,0,22.025,51.13V33.353H15.563V26h6.462V20.4c0-6.375,3.8-9.9,9.608-9.9a39.148,39.148,0,0,1,5.695.5v6.257H34.119c-3.159,0-4.145,1.961-4.145,3.973V26h7.055L35.9,33.353H29.975V51.13A25.447,25.447,0,0,0,51.438,26Z" transform="translate(441.438 1047.486)" fill="#09f" />
+                </g>
+              </svg>
+            </div>
+
+            <input class="input-bhi w-full" type="text">
+          </div>
+
+          <div class="flex">
+            <div class="mr-4">
+              <svg xmlns="http://www.w3.org/2000/svg" width="51" height="51" viewBox="0 0 51 51">
+                <g id="Group_557" data-name="Group 557" transform="translate(-428 -1116)">
+                  <g id="Group_64" data-name="Group 64" transform="translate(692.794 -1342.206)">
+                    <circle
+                      id="Ellipse_2"
+                      data-name="Ellipse 2"
+                      cx="25.5"
+                      cy="25.5"
+                      r="25.5"
+                      transform="translate(-264.794 2458.206)"
+                      fill="#09f"
+                    />
+                  </g>
+                  <g id="Icon_ionic-logo-instagram" data-name="Icon ionic-logo-instagram" transform="translate(436.5 1124.5)">
+                    <path id="Path_316" data-name="Path 316" d="M22.208,6.583a5.224,5.224,0,0,1,5.208,5.208V22.208a5.224,5.224,0,0,1-5.208,5.208H11.792a5.224,5.224,0,0,1-5.208-5.208V11.792a5.224,5.224,0,0,1,5.208-5.208H22.208m0-2.083H11.792A7.313,7.313,0,0,0,4.5,11.792V22.208A7.313,7.313,0,0,0,11.792,29.5H22.208A7.313,7.313,0,0,0,29.5,22.208V11.792A7.313,7.313,0,0,0,22.208,4.5Z" fill="#fff" />
+                    <path id="Path_317" data-name="Path 317" d="M25.313,12.375A1.688,1.688,0,1,1,27,10.688,1.683,1.683,0,0,1,25.313,12.375Z" transform="translate(-1.619 -0.381)" fill="#fff" />
+                    <path id="Path_318" data-name="Path 318" d="M18,13.5A4.5,4.5,0,1,1,13.5,18,4.5,4.5,0,0,1,18,13.5m0-2.25A6.75,6.75,0,1,0,24.75,18,6.752,6.752,0,0,0,18,11.25Z" transform="translate(-1 -1)" fill="#fff" />
+                  </g>
+                </g>
+              </svg>
+            </div>
+
+            <input class="input-bhi w-full" type="text">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- btn -->
+    <div class="flex flex-col lg:flex-row text-center">
+      <div class="btn-bhi-primary lg:mr-6" @click="action('aprobada')">
+        Aprobar
+      </div>
+      <div class="btn-bhi-primary mt-5 lg:mt-0" @click="action('eliminada')">
+        Dar de baja
+      </div>
+    </div>
+  </div>
+</template>
+<script>
+export default {
+  methods: {
+    action (b) {
+      window.scroll(0, 0)
+      this.$nuxt.$emit('OVERLAY_ACTIVE')
+      this.$nuxt.$emit('ADMIN_ACTION_ACTIVE', {
+        title: b
+      })
+    }
+  }
+}
+</script>

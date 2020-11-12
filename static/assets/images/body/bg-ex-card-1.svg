@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="583" height="401" viewBox="0 0 583 401">
+  <defs>
+    <pattern id="pattern" width="1" height="1" viewBox="3.968 0 583 401">
+      <image preserveAspectRatio="xMidYMid slice" width="605.491" height="401" xlink:href="Camino%20de%20los%207%20Lagos-image.jpg"/>
+    </pattern>
+  </defs>
+  <path id="Camino_de_los_7_Lagos" data-name="Camino de los 7 Lagos" d="M25,0H558a25,25,0,0,1,25,25V376a25,25,0,0,1-25,25H0a0,0,0,0,1,0,0V25A25,25,0,0,1,25,0Z" fill="url(#pattern)"/>
+</svg>
