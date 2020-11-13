@@ -54,17 +54,20 @@
         <div class="mt-16 px-8 lg:px-24 pb-12">
           <div class="flex flex-col mb-4">
             <span class="lg:text-xl text-lg font-bold mb-4 pl-5">Correo Electrónico</span>
-            <input class="input-bhi" type="text">
+            <input v-model="email" class="input-bhi" type="text">
           </div>
           <div class="flex flex-col">
             <span class="lg:text-xl text-lg font-bold mb-4 pl-5">Contraseña</span>
-            <input class="input-bhi" type="text">
+            <input v-model="password" class="input-bhi" type="password">
           </div>
         </div>
 
         <!-- btn -->
         <div class="text-center">
-          <span class="bg-bhi-primary border-2 border-bhi-primary text-white rounded-3xl py-4 px-12 text-lg lg:text-xl hover:bg-white hover:text-bhi-primary outline-none cursor-pointer duration-300">
+          <span
+            class="bg-bhi-primary border-2 border-bhi-primary text-white rounded-3xl py-4 px-12 text-lg lg:text-xl hover:bg-white hover:text-bhi-primary outline-none cursor-pointer duration-300"
+            @click="onLogin"
+          >
             Iniciar Sesión
           </span>
         </div>
@@ -79,8 +82,49 @@
   </div>
 </template>
 <script>
+import { login } from '~/helpers/api'
+import { isAdmin } from '~/helpers/methods'
 export default {
+  data: () => ({
+    email: 'admin@bhi.com',
+    password: 'password@2000'
+  }),
   methods: {
+    async onLogin () {
+      try {
+        const { data } = await login(this.email, this.password)
+
+        const { token, user } = data
+
+        if (!token) {
+          return alert(JSON.stringify(data))
+        }
+
+        return this.verifyActive(user.verify, user.active, user.roles)
+      } catch (error) {
+        alert(error)
+      }
+    },
+    verifyActive (v, a, r) {
+      if (!a) {
+        return alert('usuario no fue acivado')
+      }
+
+      if (!v) {
+        return alert('usuario a la espera de verificacion')
+      }
+
+      if (v && a) {
+        this.$nuxt.$emit('OVERLAY_DISABLED')
+        this.$nuxt.$emit('LOGIN_DISABLED')
+
+        if (isAdmin(r)) {
+          return this.$router.push('/admin')
+        }
+
+        this.$router.push('/tours')
+      }
+    },
     openCreate () {
       this.$nuxt.$emit('LOGIN_DISABLED')
       this.$nuxt.$emit('CREATE_ACTIVE')
