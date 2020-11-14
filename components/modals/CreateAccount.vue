@@ -52,46 +52,88 @@
 
         <!-- form -->
         <div class="mt-16 px-8 lg:px-24">
+          <!-- name agency -->
           <div class="flex flex-col mb-4">
             <span class="lg:text-xl text-lg font-bold mb-4 pl-5">Nombre de la Agencia</span>
-            <input v-model="nameAgency" class="input-bhi" type="text">
+            <input
+              v-model.trim="$v.nameAgency.$model"
+              class="input-bhi"
+              type="text"
+              :class="{'border-red-600' : !$v.nameAgency.minLength}"
+            >
           </div>
 
+          <div v-if="!$v.nameAgency.minLength" class="error__input animation-fade">
+            El nombre debe ser de  {{ $v.nameAgency.$params.minLength.min }} letras minimo.
+          </div>
+
+          <!-- email -->
           <div class="flex flex-col mb-4">
             <span class="lg:text-xl text-lg font-bold mb-4 pl-5">Correo electrónico</span>
-            <input v-model="email" class="input-bhi" type="text">
+            <input v-model.trim="$v.email.$model" class="input-bhi" type="text">
           </div>
 
+          <div v-if="!$v.email.email" class="error__input animation-fade">
+            Escriba un email valido por favor.
+          </div>
+
+          <!-- password -->
           <div class="flex flex-col mb-4">
             <span class="lg:text-xl text-lg font-bold mb-4 pl-5">Crear Contraseña</span>
-            <input v-model="password" class="input-bhi" type="text">
+            <input v-model.trim="$v.password.$model" class="input-bhi" type="text">
           </div>
 
+          <div v-if="!$v.password.minLength" class="error__input animation-fade">
+            La contraseña debe ser de {{ $v.password.$params.minLength.min }} caracteres minimo.
+          </div>
+
+          <!-- password confirm -->
           <div class="flex flex-col mb-4">
             <span class="lg:text-xl text-lg font-bold mb-4 pl-5">Confirmar Contraseña</span>
-            <input v-model="passwordConfirm" class="input-bhi" type="text">
+            <input v-model.trim="$v.passwordConfirm.$model" class="input-bhi" type="text">
           </div>
 
+          <div v-if="!$v.passwordConfirm.sameAsPassword" class="error__input animation-fade">
+            La contraseña deben ser identicas.
+          </div>
+
+          <!-- name seller -->
           <div class="flex flex-col mb-4">
             <span class="lg:text-xl text-lg font-bold mb-4 pl-5">Nombre del Vendedor</span>
-            <input v-model="nameSeller" class="input-bhi" type="text">
+            <input v-model.trim="$v.nameSeller.$model" class="input-bhi" type="text">
           </div>
 
+          <div v-if="!$v.nameSeller.minLength" class="error__input animation-fade">
+            El nombre debe ser de  {{ $v.nameSeller.$params.minLength.min }} letras minimo.
+          </div>
+
+          <!-- address -->
           <div class="flex flex-col mb-4">
             <span class="lg:text-xl text-lg font-bold mb-4 pl-5">Dirección</span>
-            <input v-model="address" class="input-bhi" type="text">
+            <input v-model="$v.address.$model" class="input-bhi" type="text">
           </div>
 
+          <div v-if="!$v.address.minLength" class="error__input animation-fade">
+            La direccion debe ser de {{ $v.address.$params.minLength.min }} caracteres minimo.
+          </div>
+
+          <!-- phone -->
           <div class="flex flex-col mb-4">
             <span class="lg:text-xl text-lg font-bold mb-4 pl-5">Teléfono</span>
             <input v-model="phone" class="input-bhi" type="text">
           </div>
 
+          <!-- razon social -->
           <div class="flex flex-col mb-4">
             <span class="lg:text-xl text-lg font-bold mb-4 pl-5">Razón Social</span>
-            <input v-model="razonSocial" class="input-bhi" type="text">
+            <input v-model="$v.razonSocial.$model" class="input-bhi" type="text">
           </div>
 
+          <div v-if="!$v.razonSocial.minLength" class="error__input animation-fade">
+            La razon social debe ser de {{ $v.razonSocial.$params.minLength.min }} caracteres minimo.
+          </div>
+
+          <!-- sociales -->
           <div class="flex flex-col mb-4">
             <span class="lg:text-xl text-lg font-bold mb-4 pl-5">Redes Sociales</span>
 
@@ -162,9 +204,10 @@
           </div>
         </div>
 
-        <div class="flex items-center justify-center mt-20 mb-16">
-          <input class="w-5 h-5 mr-2" type="radio">
-          <span class="text-base" style="color: #0099FF">He leído los términos y condiciones.</span>
+        <!-- terms -->
+        <div class="flex items-center justify-center mt-10 mb-16">
+          <input id="terms" v-model="terms" :value="true" class="w-5 h-5 mr-2" type="radio">
+          <label for="terms" class="text-base cursor-pointer text-bhi-secondary">He leído los términos y condiciones.</label>
         </div>
 
         <!-- btn -->
@@ -181,7 +224,9 @@
   </div>
 </template>
 <script>
+import { required, email, sameAs, minLength } from 'vuelidate/lib/validators'
 import { signup } from '~/helpers/api'
+
 export default {
   props: {
     create: {
@@ -197,16 +242,22 @@ export default {
     phone: null,
     razonSocial: null,
     email: null,
-    password: null,
-    passwordConfirm: null,
+    password: '',
+    passwordConfirm: '',
     social: {
       twitter: null,
       facebook: null,
       instagram: null
-    }
+    },
+    terms: false
   }),
   methods: {
     async signup () {
+      if (this.$v.$invalid) {
+        console.log('invalido')
+        return true
+      }
+
       const { data } = await signup({
         nameAgency: this.nameAgency,
         nameSeller: this.nameSeller,
@@ -224,6 +275,34 @@ export default {
       this.$nuxt.$emit('CREATE_DISABLED')
       this.$nuxt.$emit('OVERLAY_DISABLED')
     }
+  },
+  validations: {
+    nameAgency: {
+      required,
+      minLength: minLength(4)
+    },
+    email: {
+      email
+    },
+    password: {
+      required,
+      minLength: minLength(6)
+    },
+    passwordConfirm: {
+      sameAsPassword: sameAs('password')
+    },
+    nameSeller: {
+      required,
+      minLength: minLength(4)
+    },
+    address: {
+      required,
+      minLength: minLength(10)
+    },
+    razonSocial: {
+      required,
+      minLength: minLength(5)
+    }
   }
 }
 </script>
@@ -238,5 +317,8 @@ export default {
 }
 .recovery-text {
   color: #0099FF
+}
+.error__input {
+  @apply mb-4 pl-5 text-red-600 font-semibold
 }
 </style>
