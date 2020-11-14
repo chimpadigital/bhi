@@ -205,9 +205,36 @@
         </div>
 
         <!-- terms -->
-        <div class="flex items-center justify-center mt-10 mb-16">
+        <div class="flex items-center justify-center mt-10 mb-6" :class="{ 'mb-10': errors.length === 0 || !errorEmail }">
           <input id="terms" v-model="terms" :value="true" class="w-5 h-5 mr-2" type="radio">
           <label for="terms" class="text-base cursor-pointer text-bhi-secondary">He leído los términos y condiciones.</label>
+        </div>
+
+        <!-- alert -->
+        <div v-if="errors.length" class="px-8 lg:px-24 mb-10 animation-fade">
+          <div class="border border-red-500 text-red-500 p-2">
+            <p class="text-base font-semibold">
+              Por favor complete los siguientes campos:
+            </p>
+
+            <br>
+
+            <ul class="text-base font-semibold">
+              <li v-for="(e, i) in errors" :key="i">
+                - {{ e }}
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- alert email -->
+        <!-- alert -->
+        <div v-if="errorEmail" class="px-8 lg:px-24 mb-10 animation-fade">
+          <div class="border border-red-500 text-red-500 p-2">
+            <p class="text-center text-base font-semibold">
+              El email ya tiene una cuenta creada.
+            </p>
+          </div>
         </div>
 
         <!-- btn -->
@@ -242,19 +269,31 @@ export default {
     phone: null,
     razonSocial: null,
     email: null,
-    password: '',
-    passwordConfirm: '',
+    password: null,
+    passwordConfirm: null,
     social: {
       twitter: null,
       facebook: null,
       instagram: null
     },
-    terms: false
+    terms: false,
+    errors: [],
+    errorEmail: false
   }),
   methods: {
     async signup () {
+      this.errorEmail = false
+      this.errors = []
+
       if (this.$v.$invalid || !this.terms) {
-        console.log('invalido')
+        if (!this.nameAgency) { this.errors.push('Nombre de la Agencia') }
+        if (!this.email) { this.errors.push('Email') }
+        if (!this.password) { this.errors.push('Contraseña') }
+        if (!this.passwordConfirm) { this.errors.push('Confirmar Contraseña') }
+        if (!this.address) { this.errors.push('Direccion') }
+        if (!this.razonSocial) { this.errors.push('Razon social') }
+        if (!this.terms) { this.errors.push('Acepte los términos y condiciones.') }
+
         return true
       }
 
@@ -269,7 +308,13 @@ export default {
         social: this.social
       })
 
-      console.log(data)
+      const { token, message } = data
+
+      if (!token) {
+        if (message === 'The email already exists') { return (this.errorEmail = true) }
+      }
+
+      return alert('registro completado a espera de aprobacion')
     },
     close () {
       this.$nuxt.$emit('CREATE_DISABLED')
