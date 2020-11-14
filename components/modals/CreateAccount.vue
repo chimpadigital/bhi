@@ -54,52 +54,48 @@
         <div class="mt-16 px-8 lg:px-24">
           <div class="flex flex-col mb-4">
             <span class="lg:text-xl text-lg font-bold mb-4 pl-5">Nombre de la Agencia</span>
-            <input class="input-bhi" type="text">
+            <input v-model="nameAgency" class="input-bhi" type="text">
           </div>
 
           <div class="flex flex-col mb-4">
             <span class="lg:text-xl text-lg font-bold mb-4 pl-5">Correo electrónico</span>
-            <input class="input-bhi" type="text">
-          </div>
-
-          <div class="flex flex-col">
-            <span class="lg:text-xl text-lg font-bold mb-4 pl-5">Contraseña</span>
-            <input class="input-bhi" type="text">
+            <input v-model="email" class="input-bhi" type="text">
           </div>
 
           <div class="flex flex-col mb-4">
             <span class="lg:text-xl text-lg font-bold mb-4 pl-5">Crear Contraseña</span>
-            <input class="input-bhi" type="text">
+            <input v-model="password" class="input-bhi" type="text">
           </div>
 
           <div class="flex flex-col mb-4">
             <span class="lg:text-xl text-lg font-bold mb-4 pl-5">Confirmar Contraseña</span>
-            <input class="input-bhi" type="text">
+            <input v-model="passwordConfirm" class="input-bhi" type="text">
           </div>
 
           <div class="flex flex-col mb-4">
             <span class="lg:text-xl text-lg font-bold mb-4 pl-5">Nombre del Vendedor</span>
-            <input class="input-bhi" type="text">
+            <input v-model="nameSeller" class="input-bhi" type="text">
           </div>
 
           <div class="flex flex-col mb-4">
             <span class="lg:text-xl text-lg font-bold mb-4 pl-5">Dirección</span>
-            <input class="input-bhi" type="text">
+            <input v-model="address" class="input-bhi" type="text">
           </div>
 
           <div class="flex flex-col mb-4">
             <span class="lg:text-xl text-lg font-bold mb-4 pl-5">Teléfono</span>
-            <input class="input-bhi" type="text">
+            <input v-model="phone" class="input-bhi" type="text">
           </div>
 
           <div class="flex flex-col mb-4">
             <span class="lg:text-xl text-lg font-bold mb-4 pl-5">Razón Social</span>
-            <input class="input-bhi" type="text">
+            <input v-model="razonSocial" class="input-bhi" type="text">
           </div>
 
           <div class="flex flex-col mb-4">
             <span class="lg:text-xl text-lg font-bold mb-4 pl-5">Redes Sociales</span>
 
+            <!-- twitter -->
             <div class="mb-4 flex">
               <div class="mr-4">
                 <svg xmlns="http://www.w3.org/2000/svg" width="51" height="51" viewBox="0 0 51 51">
@@ -120,9 +116,10 @@
                 </svg>
               </div>
 
-              <input class="input-bhi w-full" type="text">
+              <input v-model="social.twitter" class="input-bhi w-full" type="text">
             </div>
 
+            <!-- facebook -->
             <div class="mb-4 flex">
               <div class="mr-4">
                 <svg xmlns="http://www.w3.org/2000/svg" width="50.875" height="50.567" viewBox="0 0 50.875 50.567">
@@ -132,9 +129,10 @@
                 </svg>
               </div>
 
-              <input class="input-bhi w-full" type="text">
+              <input v-model="social.facebook" class="input-bhi w-full" type="text">
             </div>
 
+            <!-- instagram -->
             <div class="flex">
               <div class="mr-4">
                 <svg xmlns="http://www.w3.org/2000/svg" width="51" height="51" viewBox="0 0 51 51">
@@ -159,7 +157,7 @@
                 </svg>
               </div>
 
-              <input class="input-bhi w-full" type="text">
+              <input v-model="social.instagram" class="input-bhi w-full" type="text">
             </div>
           </div>
         </div>
@@ -171,7 +169,10 @@
 
         <!-- btn -->
         <div class="text-center mb-32">
-          <span class="bg-bhi-primary border-2 border-bhi-primary text-white rounded-3xl py-4 px-12 text-lg lg:text-xl hover:bg-white hover:text-bhi-primary outline-none cursor-pointer duration-300">
+          <span
+            class="bg-bhi-primary border-2 border-bhi-primary text-white rounded-3xl py-4 px-12 text-lg lg:text-xl hover:bg-white hover:text-bhi-primary outline-none cursor-pointer duration-300"
+            @click="signup"
+          >
             {{ create ? 'Crear agencia' : 'Registrarme' }}
           </span>
         </div>
@@ -180,6 +181,7 @@
   </div>
 </template>
 <script>
+import { signup } from '~/helpers/api'
 export default {
   props: {
     create: {
@@ -188,7 +190,36 @@ export default {
       required: true
     }
   },
+  data: () => ({
+    nameAgency: null,
+    nameSeller: null,
+    address: null,
+    phone: null,
+    razonSocial: null,
+    email: null,
+    password: null,
+    passwordConfirm: null,
+    social: {
+      twitter: null,
+      facebook: null,
+      instagram: null
+    }
+  }),
   methods: {
+    async signup () {
+      const { data } = await signup({
+        nameAgency: this.nameAgency,
+        nameSeller: this.nameSeller,
+        address: this.address,
+        phone: this.phone,
+        razonSocial: this.razonSocial,
+        email: this.email,
+        password: this.password,
+        social: this.social
+      })
+
+      console.log(data)
+    },
     close () {
       this.$nuxt.$emit('CREATE_DISABLED')
       this.$nuxt.$emit('OVERLAY_DISABLED')

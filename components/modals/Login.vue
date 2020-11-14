@@ -91,7 +91,7 @@
   </div>
 </template>
 <script>
-import { login } from '~/helpers/api'
+import { signin } from '~/helpers/api'
 import { isAdmin } from '~/helpers/methods'
 export default {
   data: () => ({
@@ -106,7 +106,7 @@ export default {
   methods: {
     async onLogin () {
       try {
-        const { data } = await login(this.email, this.password)
+        const { data } = await signin(this.email, this.password)
 
         const { token, user } = data
 
