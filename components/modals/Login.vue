@@ -51,7 +51,7 @@
         </p>
 
         <!-- form -->
-        <div class="mt-16 px-8 lg:px-24 pb-12">
+        <div class="mt-16 px-8 lg:px-24 pb-6">
           <div class="flex flex-col mb-4">
             <span class="lg:text-xl text-lg font-bold mb-4 pl-5">Correo Electrónico</span>
             <input v-model="email" class="input-bhi" type="text">
@@ -59,6 +59,15 @@
           <div class="flex flex-col">
             <span class="lg:text-xl text-lg font-bold mb-4 pl-5">Contraseña</span>
             <input v-model="password" class="input-bhi" type="password">
+          </div>
+        </div>
+
+        <!-- alert -->
+        <div v-if="alert.show" class="px-8 lg:px-24 mb-10 animation-fade">
+          <div class="border border-red-500 text-red-500 p-2" :class="{'color__success': !alert.error}">
+            <p class="text-center text-base font-semibold">
+              {{ alert.message }}
+            </p>
           </div>
         </div>
 
@@ -87,7 +96,12 @@ import { isAdmin } from '~/helpers/methods'
 export default {
   data: () => ({
     email: 'admin@bhi.com',
-    password: 'password@2000'
+    password: 'password@2000',
+    alert: {
+      error: true,
+      show: false,
+      message: null
+    }
   }),
   methods: {
     async onLogin () {
@@ -97,32 +111,47 @@ export default {
         const { token, user } = data
 
         if (!token) {
-          return alert(JSON.stringify(data))
+          this.alert.show = true
+
+          if (data.message === 'password fail') {
+            this.alert.message = 'La contraseña es incorrecta'
+            return true
+          }
+
+          if (data.message === 'email not found') {
+            this.alert.message = 'El email no tiene una cuenta con nosotros'
+            return true
+          }
         }
 
-        return this.verifyActive(user.verify, user.active, user.roles)
+        return this.verifyActive(user.active, user.verify, user.roles)
       } catch (error) {
         alert(error)
       }
     },
-    verifyActive (v, a, r) {
+    verifyActive (a, v, r) {
       if (!a) {
-        return alert('usuario no fue acivado')
+        this.alert.show = true
+        this.alert.message = 'Su cuenta no fue aprobada por el administrador'
+        return true
       }
 
       if (!v) {
-        return alert('usuario a la espera de verificacion')
+        this.alert.show = true
+        this.alert.message = 'Su cuenta se encuentra a la espea de verificacion.'
+        return true
       }
 
-      if (v && a) {
-        this.$nuxt.$emit('OVERLAY_DISABLED')
-        this.$nuxt.$emit('LOGIN_DISABLED')
+      if (a && v) {
+        this.alert.error = false
+        this.alert.show = true
+        this.alert.message = 'Login correcto, redireccionando..'
 
         if (isAdmin(r)) {
           return this.$router.push('/admin')
         }
 
-        this.$router.push('/tours')
+        return this.$router.push('/tours')
       }
     },
     openCreate () {
@@ -151,5 +180,8 @@ export default {
 }
 .recovery-text {
   color: #0099FF
+}
+.color__success {
+  @apply text-green-500 border-green-500 !important
 }
 </style>

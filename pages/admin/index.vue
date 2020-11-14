@@ -123,6 +123,16 @@ export default {
       this.$nuxt.$emit('OVERLAY_ACTIVE')
       this.$nuxt.$emit('ADMIN_ACTION_ACTIVE', false)
     }
+  },
+  beforeRouteEnter (to, from, next) {
+    if (from.fullPath === '/' || from.path === '/') {
+      next((vm) => {
+        vm.$nuxt.$emit('LOGIN_DISABLED')
+        vm.$nuxt.$emit('OVERLAY_DISABLED')
+        return true
+      })
+    }
+    next()
   }
 }
 </script>
