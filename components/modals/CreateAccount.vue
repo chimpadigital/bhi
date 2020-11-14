@@ -253,7 +253,7 @@ export default {
   }),
   methods: {
     async signup () {
-      if (this.$v.$invalid) {
+      if (this.$v.$invalid || !this.terms) {
         console.log('invalido')
         return true
       }
