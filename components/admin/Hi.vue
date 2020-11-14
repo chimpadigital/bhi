@@ -1,10 +1,12 @@
 <template>
   <div class="my-12 container">
     <div class="px-4 lg:px-0 flex flex-col lg:flex-row justify-between items-center">
-      <span
+      <p
         :class="{'max-w-xs w-full': $route.path.includes('/admin/viajes/')}"
         class="text-bhi-primary text-4xl font-bold"
-      >Hola, BHI</span>
+      >
+        Hola, <span v-if="data"> {{ data.nameAgency }} </span>
+      </p>
 
       <!-- back -->
       <div v-if="$route.path.includes('/admin/viajes/')" class="hidden lg:flex cursor-pointer flex-1 pl-10">
@@ -70,7 +72,17 @@
   </div>
 </template>
 <script>
+import { mapGetters } from 'vuex'
 export default {
+  data: () => ({
+    data: null
+  }),
+  computed: {
+    ...mapGetters('user', ['user'])
+  },
+  mounted () {
+    this.data = this.user
+  },
   methods: {
     create () {
       this.$nuxt.$emit('OVERLAY_ACTIVE')

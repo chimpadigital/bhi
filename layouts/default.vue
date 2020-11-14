@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="!$fetchState.pending">
     <nuxt />
 
     <Overlay v-if="overlay" />
@@ -25,6 +25,10 @@ export default {
   components: {
     Overlay, ModalLogin, ModalRecovery, ModalCreateAccount, ModalConfirmation, ModalSuccess, ModalAdminAction, ModalEditAccount
   },
+  async fetch () {
+
+  },
+  fetchOnServer: false,
   data: () => ({
     overlay: false,
     login: false,

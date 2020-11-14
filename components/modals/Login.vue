@@ -91,6 +91,7 @@
   </div>
 </template>
 <script>
+import { mapMutations } from 'vuex'
 import { signin } from '~/helpers/api'
 import { isAdmin } from '~/helpers/methods'
 export default {
@@ -104,6 +105,7 @@ export default {
     }
   }),
   methods: {
+    ...mapMutations('user', ['SET_USER', 'SET_TOKEN']),
     async onLogin () {
       try {
         const { data } = await signin(this.email, this.password)
@@ -124,12 +126,12 @@ export default {
           }
         }
 
-        return this.verifyActive(user.active, user.verify, user.roles)
+        return this.verifyActive(user.active, user.verify, user.roles, { user, token })
       } catch (error) {
         alert(error)
       }
     },
-    verifyActive (a, v, r) {
+    verifyActive (a, v, r, { user, token }) {
       if (!a) {
         this.alert.show = true
         this.alert.message = 'Su cuenta no fue aprobada por el administrador'
@@ -143,6 +145,9 @@ export default {
       }
 
       if (a && v) {
+        this.SET_TOKEN(token)
+        this.SET_USER(user)
+
         this.alert.error = false
         this.alert.show = true
         this.alert.message = 'Login correcto, redireccionando..'
