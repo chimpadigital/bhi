@@ -118,8 +118,8 @@ export default {
       this.$nuxt.$emit('CREATE_ACTIVE')
     },
     async _logout () {
-      await this.logout()
       this.$router.push('/')
+      await this.logout()
     }
   }
 }

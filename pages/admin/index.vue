@@ -105,6 +105,7 @@
 </template>
 <script>
 export default {
+  middleware: ['auth'],
   data: () => ({
     pending: [
       'Nombre de Usuario', 'Nombre de Usuario', 'Nombre de Usuario'

@@ -105,7 +105,7 @@ export default {
     }
   }),
   methods: {
-    ...mapMutations('user', ['SET_USER', 'SET_TOKEN']),
+    ...mapMutations('user', ['SET_USER', 'SET_TOKEN', 'SET_ROLE']),
     async onLogin () {
       try {
         const { data } = await signin(this.email, this.password)
@@ -147,6 +147,7 @@ export default {
       if (a && v) {
         this.SET_TOKEN(token)
         this.SET_USER(user)
+        this.SET_ROLE(user.roles[0])
 
         this.alert.error = false
         this.alert.show = true

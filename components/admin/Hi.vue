@@ -2,10 +2,11 @@
   <div class="my-12 container">
     <div class="px-4 lg:px-0 flex flex-col lg:flex-row justify-between items-center">
       <p
+        v-if="user"
         :class="{'max-w-xs w-full': $route.path.includes('/admin/viajes/')}"
         class="text-bhi-primary text-4xl font-bold"
       >
-        Hola, <span v-if="data"> {{ data.nameAgency }} </span>
+        Hola, <span> {{ user.nameAgency }} </span>
       </p>
 
       <!-- back -->
@@ -74,14 +75,8 @@
 <script>
 import { mapGetters } from 'vuex'
 export default {
-  data: () => ({
-    data: null
-  }),
   computed: {
     ...mapGetters('user', ['user'])
-  },
-  mounted () {
-    this.data = this.user
   },
   methods: {
     create () {
