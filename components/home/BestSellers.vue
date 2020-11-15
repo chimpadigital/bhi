@@ -9,7 +9,7 @@
     </div>
 
     <div :class="{'tours-block': $route.path === '/'}">
-      <div class="container lg:px-16 pb-16">
+      <div class="container lg:px-16 pb-10">
         <div class="flex flex-wrap w-full">
           <div
             v-for="({ name, description, date, days, photo }, i) in data"
@@ -127,15 +127,25 @@
           </div>
         </div>
       </div>
+
+      <div v-if="user" class="flex justify-center pb-16">
+        <nuxt-link to="/tours" class="btn-bhi-primary">
+          Ver todos los tours
+        </nuxt-link>
+      </div>
     </div>
   </div>
 </template>
 <script>
+import { mapGetters } from 'vuex'
 import tours from '~/helpers/tours'
 export default {
   data: () => ({
     data: tours
-  })
+  }),
+  computed: {
+    ...mapGetters('user', ['user'])
+  }
 }
 </script>
 <style lang="postcss" scoped>

@@ -522,6 +522,7 @@
 </template>
 <script>
 export default {
+  middleware: ['auth', 'admin'],
   data: () => ({
     viaje: null
   }),

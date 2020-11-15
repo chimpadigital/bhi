@@ -43,6 +43,7 @@ import Search from '~/components/admin/Search'
 import Tags from '~/components/admin/Tags'
 import Viajes from '~/components/admin/Viajes'
 export default {
+  middleware: ['auth'],
   components: {
     Search, Tags, Viajes
   },

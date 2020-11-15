@@ -32,8 +32,19 @@ import Footer from '~/components/home/Footer'
 import Hi from '~/components/admin/Hi'
 import Navigation from '~/components/admin/Navigation'
 export default {
+  middleware: ['auth', 'admin'],
   components: {
     Header, Footer, Hi, Navigation
+  },
+  beforeRouteEnter (to, from, next) {
+    if (from.fullPath === '/' || from.path === '/') {
+      next((vm) => {
+        vm.$nuxt.$emit('LOGIN_DISABLED')
+        vm.$nuxt.$emit('OVERLAY_DISABLED')
+        return true
+      })
+    }
+    next()
   }
 }
 </script>

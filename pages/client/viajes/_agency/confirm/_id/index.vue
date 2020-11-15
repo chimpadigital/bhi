@@ -447,6 +447,7 @@ o alergía alimenticia."
 </template>
 <script>
 export default {
+  middleware: ['auth'],
   data: () => ({
     user: null
   }),

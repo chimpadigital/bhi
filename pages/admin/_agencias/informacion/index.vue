@@ -166,6 +166,7 @@
 </template>
 <script>
 export default {
+  middleware: ['auth', 'admin'],
   methods: {
     action (b) {
       window.scroll(0, 0)

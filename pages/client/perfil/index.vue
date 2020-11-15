@@ -163,6 +163,7 @@
 </template>
 <script>
 export default {
+  middleware: ['auth'],
   data: () => ({
     password: true
   }),

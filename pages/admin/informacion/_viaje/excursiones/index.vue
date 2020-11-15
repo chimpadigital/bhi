@@ -198,6 +198,11 @@ NO INCLUYE CUBIERTO EN MINA CLAVERO VIGENCIA: HASTA - TARIFAS SUJETAS A MODIFICA
     </div>
   </div>
 </template>
+<script>
+export default {
+  middleware: ['auth', 'admin']
+}
+</script>
 <style lang="postcss" scoped>
 .h-tetarea {
   height: 291px;

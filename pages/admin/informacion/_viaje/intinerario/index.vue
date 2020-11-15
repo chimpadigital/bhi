@@ -347,6 +347,7 @@
 </template>
 <script>
 export default {
+  middleware: ['auth', 'admin'],
   data: () => ({
     addDay: true
   })

@@ -78,6 +78,7 @@
 import tours from '~/helpers/tours'
 import Search from '~/components/admin/Search'
 export default {
+  middleware: ['auth', 'admin'],
   components: {
     Search
   },

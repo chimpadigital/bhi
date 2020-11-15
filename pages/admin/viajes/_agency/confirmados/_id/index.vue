@@ -83,6 +83,7 @@
 <script>
 import Search from '~/components/admin/Search'
 export default {
+  middleware: ['auth', 'admin'],
   components: {
     Search
   },

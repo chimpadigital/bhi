@@ -111,6 +111,7 @@
 import Search from '~/components/admin/Search'
 import Tags from '~/components/admin/Tags'
 export default {
+  middleware: ['auth', 'admin'],
   components: {
     Search, Tags
   },

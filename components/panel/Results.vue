@@ -9,15 +9,13 @@
     <div class="content-best-sellers">
       <BestSellers />
     </div>
-    <Footer />
   </div>
 </template>
 <script>
 import BestSellers from '~/components/home/BestSellers'
-import Footer from '~/components/home/Footer'
 export default {
   components: {
-    BestSellers, Footer
+    BestSellers
   }
 }
 </script>

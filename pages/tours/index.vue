@@ -2,14 +2,17 @@
   <div>
     <Search />
     <Results />
+    <Footer />
   </div>
 </template>
 <script>
 import Search from '~/components/panel/Search'
 import Results from '~/components/panel/Results'
+import Footer from '~/components/home/Footer'
 export default {
+  middleware: ['auth'],
   components: {
-    Search, Results
+    Search, Results, Footer
   },
   beforeRouteEnter (to, from, next) {
     if (from.fullPath === '/' || from.path === '/') {

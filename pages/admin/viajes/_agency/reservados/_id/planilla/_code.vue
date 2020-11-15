@@ -367,6 +367,7 @@ o alergía alimenticia."
 </template>
 <script>
 export default {
+  middleware: ['auth', 'admin'],
   data: () => ({
     pasajero: null,
     viaje: {
