@@ -54,7 +54,7 @@
     <div v-if="pending.length" class="mb-10">
       <!-- icon user-->
       <div
-        v-for="(e, i) in pending"
+        v-for="({ nameSeller }, i) in pending"
         :key="i"
         class="rounded-3xl rounded-bl-none bg-bhi-aux flex w-full items-center pl-5 pr-10 py-5 mb-10 last:mb-0 shadow-primary"
       >
@@ -71,8 +71,8 @@
         </svg>
 
         <!-- name -->
-        <span class="text-xl font-bold ml-5 flex-1">
-          {{ e }}
+        <span class="text-xl font-bold ml-5 flex-1 capitalize">
+          {{ nameSeller }}
         </span>
 
         <!-- icons controls -->
@@ -104,6 +104,8 @@
   </div>
 </template>
 <script>
+import { mapGetters } from 'vuex'
+import { usersPending } from '~/helpers/api'
 export default {
   middleware: ['auth', 'admin'],
   data: () => ({
@@ -111,6 +113,13 @@ export default {
       'Nombre de Usuario', 'Nombre de Usuario', 'Nombre de Usuario'
     ]
   }),
+  computed: {
+    ...mapGetters('user', ['token'])
+  },
+  async mounted () {
+    const { data } = await usersPending(this.token)
+    this.pending = data
+  },
   methods: {
     confirmUser (i) {
       const a = [...this.pending].filter((e, index) => index !== i)
