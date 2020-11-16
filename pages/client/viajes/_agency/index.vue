@@ -117,7 +117,7 @@
 <script>
 import Search from '~/components/admin/Search'
 export default {
-  middleware: ['auth'],
+  middleware: ['auth', 'user'],
   components: {
     Search
   },

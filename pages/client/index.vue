@@ -21,7 +21,7 @@
 import tours from '~/helpers/tours'
 import Viajes from '~/components/admin/Viajes'
 export default {
-  middleware: ['auth'],
+  middleware: ['auth', 'user'],
   components: {
     Viajes
   },

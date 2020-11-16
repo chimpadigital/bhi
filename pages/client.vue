@@ -28,7 +28,7 @@ import Hi from '~/components/client/Hi'
 import Navigation from '~/components/client/Navigation'
 import Footer from '~/components/home/Footer'
 export default {
-  middleware: ['auth'],
+  middleware: ['auth', 'user'],
   components: {
     Header, Hi, Navigation, Footer
   }
