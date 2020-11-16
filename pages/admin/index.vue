@@ -61,7 +61,7 @@
       <div v-if="pending.length" class="mb-10">
         <!-- icon user-->
         <div
-          v-for="({ nameSeller }, i) in pending"
+          v-for="({ _id: id, nameSeller }, i) in pending"
           :key="i"
           class="rounded-3xl rounded-bl-none bg-bhi-aux flex w-full items-center pl-5 pr-10 py-5 mb-10 last:mb-0 shadow-primary"
         >
@@ -84,7 +84,7 @@
 
           <!-- icons controls -->
           <div class="flex items-center">
-            <div class="cursor-pointer mr-10" @click="confirmUser(i)">
+            <div class="cursor-pointer mr-10" @click="confirmUser(id)">
               <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40">
                 <path id="Icon_awesome-check-circle" data-name="Icon awesome-check-circle" d="M40.563,20.563a20,20,0,1,1-20-20A20,20,0,0,1,40.563,20.563ZM18.249,31.152,33.088,16.314a1.29,1.29,0,0,0,0-1.825l-1.825-1.825a1.29,1.29,0,0,0-1.825,0l-12.1,12.1-5.65-5.65a1.29,1.29,0,0,0-1.825,0L8.037,20.94a1.29,1.29,0,0,0,0,1.825l8.387,8.387a1.29,1.29,0,0,0,1.825,0Z" transform="translate(-0.563 -0.563)" fill="#00008b" />
               </svg>
@@ -113,7 +113,7 @@
 </template>
 <script>
 import { mapGetters } from 'vuex'
-import { usersPending } from '~/helpers/api'
+import { usersPending, usersVerify } from '~/helpers/api'
 export default {
   middleware: ['auth', 'admin'],
   data: () => ({
@@ -123,21 +123,31 @@ export default {
     ...mapGetters('user', ['token'])
   },
   async mounted () {
-    const { data } = await usersPending(this.token)
-    this.pending = data
+    await this.getUsersPending()
   },
   methods: {
-    confirmUser (i) {
-      const a = [...this.pending].filter((e, index) => index !== i)
-      this.pending = a
-      this.$nuxt.$emit('OVERLAY_ACTIVE')
-      this.$nuxt.$emit('ADMIN_ACTION_ACTIVE', true)
+    async confirmUser (id) {
+      try {
+        await usersVerify({ id }, this.token)
+        await this.getUsersPending()
+
+        this.$nuxt.$emit('OVERLAY_ACTIVE')
+        this.$nuxt.$emit('ADMIN_ACTION_ACTIVE', true)
+      } catch (error) {
+        alert(error)
+        this.$nuxt.$emit('OVERLAY_ACTIVE')
+        this.$nuxt.$emit('ADMIN_ACTION_ACTIVE', true)
+      }
     },
     deleteUser (i) {
       const a = [...this.pending].filter((e, index) => index !== i)
       this.pending = a
       this.$nuxt.$emit('OVERLAY_ACTIVE')
       this.$nuxt.$emit('ADMIN_ACTION_ACTIVE', false)
+    },
+    async getUsersPending () {
+      const { data } = await usersPending(this.token)
+      this.pending = data
     }
   }
 }

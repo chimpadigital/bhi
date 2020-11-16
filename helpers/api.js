@@ -7,3 +7,5 @@ export const signup = async data => await axios.post(`${api}/auth/signup`, data)
 export const signin = async (email, password) => await axios.post(`${api}/auth/signin`, { email, password })
 
 export const usersPending = async token => await axios.post(`${api}/users/pending`, null, headers(token))
+
+export const usersVerify = async (id, token) => await axios.post(`${api}/users/verify`, { id }, headers(token))
