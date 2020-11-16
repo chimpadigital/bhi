@@ -50,57 +50,65 @@
       Solicitudes pendientes
     </span>
 
-    <!-- pending -->
-    <div v-if="pending.length" class="mb-10">
-      <!-- icon user-->
-      <div
-        v-for="({ nameSeller }, i) in pending"
-        :key="i"
-        class="rounded-3xl rounded-bl-none bg-bhi-aux flex w-full items-center pl-5 pr-10 py-5 mb-10 last:mb-0 shadow-primary"
-      >
-        <svg
-          id="Group_655"
-          data-name="Group 655"
-          xmlns="http://www.w3.org/2000/svg"
-          width="40"
-          height="40"
-          viewBox="0 0 40 40"
-        >
-          <path id="Rectangle_334" data-name="Rectangle 334" d="M20,0h0A20,20,0,0,1,40,20v0A20,20,0,0,1,20,40H0a0,0,0,0,1,0,0V20A20,20,0,0,1,20,0Z" fill="#00008b" />
-          <path id="Icon_material-person" data-name="Icon material-person" d="M18.5,18.5a6.25,6.25,0,1,0-6.25-6.25A6.248,6.248,0,0,0,18.5,18.5Zm0,3.125c-4.172,0-12.5,2.094-12.5,6.25V31H31V27.875C31,23.719,22.672,21.625,18.5,21.625Z" transform="translate(1 2)" fill="#fff" />
-        </svg>
-
-        <!-- name -->
-        <span class="text-xl font-bold ml-5 flex-1 capitalize">
-          {{ nameSeller }}
-        </span>
-
-        <!-- icons controls -->
-        <div class="flex items-center">
-          <div class="cursor-pointer mr-10" @click="confirmUser(i)">
-            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40">
-              <path id="Icon_awesome-check-circle" data-name="Icon awesome-check-circle" d="M40.563,20.563a20,20,0,1,1-20-20A20,20,0,0,1,40.563,20.563ZM18.249,31.152,33.088,16.314a1.29,1.29,0,0,0,0-1.825l-1.825-1.825a1.29,1.29,0,0,0-1.825,0l-12.1,12.1-5.65-5.65a1.29,1.29,0,0,0-1.825,0L8.037,20.94a1.29,1.29,0,0,0,0,1.825l8.387,8.387a1.29,1.29,0,0,0,1.825,0Z" transform="translate(-0.563 -0.563)" fill="#00008b" />
-            </svg>
-          </div>
-
-          <div class="cursor-pointer" @click="deleteUser(i)">
-            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40">
-              <path id="Icon_material-cancel" data-name="Icon material-cancel" d="M23,3A20,20,0,1,1,3,23,19.982,19.982,0,0,1,23,3ZM13,30.18,15.82,33,23,25.82,30.18,33,33,30.18,25.82,23,33,15.82,30.18,13,23,20.18,15.82,13,13,15.82,20.18,23Z" transform="translate(-3 -3)" fill="#00008b" />
-            </svg>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- empty pending -->
-    <div v-else class="mb-10 text-center">
-      <span class="text-xl text-bhi-primary font-bold">No hay solicitudes pendientes</span>
+    <!-- query pending -->
+    <div v-if="!pending" class="mb-10 text-center">
+      <span class="text-xl text-bhi-primary font-bold">Cargando usuarios..</span>
     </div>
 
     <!-- btn -->
-    <nuxt-link v-if="pending.length" to="#" class="btn-bhi-secondary px-10">
-      Ver todo
-    </nuxt-link>
+    <div v-else>
+      <!-- pending -->
+      <div v-if="pending.length" class="mb-10">
+        <!-- icon user-->
+        <div
+          v-for="({ nameSeller }, i) in pending"
+          :key="i"
+          class="rounded-3xl rounded-bl-none bg-bhi-aux flex w-full items-center pl-5 pr-10 py-5 mb-10 last:mb-0 shadow-primary"
+        >
+          <svg
+            id="Group_655"
+            data-name="Group 655"
+            xmlns="http://www.w3.org/2000/svg"
+            width="40"
+            height="40"
+            viewBox="0 0 40 40"
+          >
+            <path id="Rectangle_334" data-name="Rectangle 334" d="M20,0h0A20,20,0,0,1,40,20v0A20,20,0,0,1,20,40H0a0,0,0,0,1,0,0V20A20,20,0,0,1,20,0Z" fill="#00008b" />
+            <path id="Icon_material-person" data-name="Icon material-person" d="M18.5,18.5a6.25,6.25,0,1,0-6.25-6.25A6.248,6.248,0,0,0,18.5,18.5Zm0,3.125c-4.172,0-12.5,2.094-12.5,6.25V31H31V27.875C31,23.719,22.672,21.625,18.5,21.625Z" transform="translate(1 2)" fill="#fff" />
+          </svg>
+
+          <!-- name -->
+          <span class="text-xl font-bold ml-5 flex-1 capitalize">
+            {{ nameSeller }}
+          </span>
+
+          <!-- icons controls -->
+          <div class="flex items-center">
+            <div class="cursor-pointer mr-10" @click="confirmUser(i)">
+              <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40">
+                <path id="Icon_awesome-check-circle" data-name="Icon awesome-check-circle" d="M40.563,20.563a20,20,0,1,1-20-20A20,20,0,0,1,40.563,20.563ZM18.249,31.152,33.088,16.314a1.29,1.29,0,0,0,0-1.825l-1.825-1.825a1.29,1.29,0,0,0-1.825,0l-12.1,12.1-5.65-5.65a1.29,1.29,0,0,0-1.825,0L8.037,20.94a1.29,1.29,0,0,0,0,1.825l8.387,8.387a1.29,1.29,0,0,0,1.825,0Z" transform="translate(-0.563 -0.563)" fill="#00008b" />
+              </svg>
+            </div>
+
+            <div class="cursor-pointer" @click="deleteUser(i)">
+              <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40">
+                <path id="Icon_material-cancel" data-name="Icon material-cancel" d="M23,3A20,20,0,1,1,3,23,19.982,19.982,0,0,1,23,3ZM13,30.18,15.82,33,23,25.82,30.18,33,33,30.18,25.82,23,33,15.82,30.18,13,23,20.18,15.82,13,13,15.82,20.18,23Z" transform="translate(-3 -3)" fill="#00008b" />
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- empty pending -->
+      <div v-else class="mb-10 text-center">
+        <span class="text-xl text-bhi-primary font-bold">No hay solicitudes pendientes</span>
+      </div>
+
+      <!-- btn -->
+      <nuxt-link v-if="pending.length" to="#" class="btn-bhi-secondary px-10">
+        Ver todo
+      </nuxt-link>
+    </div>
   </div>
 </template>
 <script>
@@ -109,9 +117,7 @@ import { usersPending } from '~/helpers/api'
 export default {
   middleware: ['auth', 'admin'],
   data: () => ({
-    pending: [
-      'Nombre de Usuario', 'Nombre de Usuario', 'Nombre de Usuario'
-    ]
+    pending: null
   }),
   computed: {
     ...mapGetters('user', ['token'])
