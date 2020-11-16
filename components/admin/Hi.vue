@@ -51,12 +51,13 @@
         </div>
       </div>
 
-      <span
+      <nuxt-link
         v-if="$route.path === '/admin/viajes' || $route.path === '/admin/informacion'"
+        to="/admin/viajes/nuevo"
         class="btn-bhi-secondary-outline mt-4 lg:mt-0"
       >
         Nuevo viaje
-      </span>
+      </nuxt-link>
 
       <div
         v-if="$route.path.includes('/admin/agencias')"
