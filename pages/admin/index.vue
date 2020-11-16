@@ -90,7 +90,7 @@
               </svg>
             </div>
 
-            <div class="cursor-pointer" @click="deleteUser(i)">
+            <div class="cursor-pointer" @click="deleteUser(id)">
               <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40">
                 <path id="Icon_material-cancel" data-name="Icon material-cancel" d="M23,3A20,20,0,1,1,3,23,19.982,19.982,0,0,1,23,3ZM13,30.18,15.82,33,23,25.82,30.18,33,33,30.18,25.82,23,33,15.82,30.18,13,23,20.18,15.82,13,13,15.82,20.18,23Z" transform="translate(-3 -3)" fill="#00008b" />
               </svg>
@@ -113,7 +113,7 @@
 </template>
 <script>
 import { mapGetters } from 'vuex'
-import { usersPending, usersVerify } from '~/helpers/api'
+import { usersPending, usersVerify, usersCancel } from '~/helpers/api'
 export default {
   middleware: ['auth', 'admin'],
   data: () => ({
@@ -139,11 +139,18 @@ export default {
         this.$nuxt.$emit('ADMIN_ACTION_ACTIVE', true)
       }
     },
-    deleteUser (i) {
-      const a = [...this.pending].filter((e, index) => index !== i)
-      this.pending = a
-      this.$nuxt.$emit('OVERLAY_ACTIVE')
-      this.$nuxt.$emit('ADMIN_ACTION_ACTIVE', false)
+    async deleteUser (id) {
+      try {
+        await usersCancel({ id }, this.token)
+        await this.getUsersPending()
+
+        this.$nuxt.$emit('OVERLAY_ACTIVE')
+        this.$nuxt.$emit('ADMIN_ACTION_ACTIVE', false)
+      } catch (error) {
+        alert(error)
+        this.$nuxt.$emit('OVERLAY_ACTIVE')
+        this.$nuxt.$emit('ADMIN_ACTION_ACTIVE', true)
+      }
     },
     async getUsersPending () {
       const { data } = await usersPending(this.token)
