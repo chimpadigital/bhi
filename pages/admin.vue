@@ -1,22 +1,22 @@
 <template>
   <div class="admin__container">
     <Header />
-    <Hi v-if="!$route.path.includes('/informacion/')" />
+    <Hi v-if="fullWidth()" />
 
     <div
       class="px-4 lg:px-0"
-      :class="{'container': !$route.path.includes('/informacion/')}"
+      :class="{'container': fullWidth()}"
     >
       <div class="flex">
         <!-- navigation -->
-        <div v-if="!$route.path.includes('/informacion/')" class="max-w-xs w-full hidden lg:block">
+        <div v-if="fullWidth()" class="max-w-xs w-full hidden lg:block">
           <Navigation />
         </div>
 
         <!-- body -->
         <div
           class="lg:border-bhi-primary w-full mb-20"
-          :class="{'lg:border-l-2 lg:pl-10': !$route.path.includes('/informacion/')}"
+          :class="{'lg:border-l-2 lg:pl-10': fullWidth()}"
         >
           <nuxt-child />
         </div>
@@ -35,6 +35,19 @@ export default {
   middleware: ['auth', 'admin'],
   components: {
     Header, Footer, Hi, Navigation
+  },
+  methods: {
+    fullWidth () {
+      if (this.$route.path.includes('/informacion/')) {
+        return false
+      }
+
+      if (this.$route.path.includes('/admin/viajes/nuevo')) {
+        return false
+      }
+
+      return true
+    }
   },
   beforeRouteEnter (to, from, next) {
     if (from.fullPath === '/' || from.path === '/') {
